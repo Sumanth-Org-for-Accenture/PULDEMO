@@ -27,5 +27,5 @@ jobs:
       - name: vstest-action
         uses: microsoft/vstest-action@v1.0.0
         with: 
-           testAssembly: /*test*/.dll
+           testAssembly: release\*test*.dll
            runInParallel: true
