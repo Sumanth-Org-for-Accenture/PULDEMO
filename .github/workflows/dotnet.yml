@@ -28,6 +28,8 @@ jobs:
     - name: Build
       run: |
         msbuild ${{env.SLN_FILE}} /p:TransformWebConfigEnabled=False /p:AutoParameterizationWebConfigConnectionStrings=False /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{github.workspace}}\stagingdir"
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
     - name: vstest-action
       uses: microsoft/vstest-action@v1.0.0
       with:
