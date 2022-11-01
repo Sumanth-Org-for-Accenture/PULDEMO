@@ -5,15 +5,15 @@ name: .NET
 
 on:
   workflow_dispatch:
-#   push:
-#     branches: [ "master" ]
+  push:
+    branches: [ "master" ]
 #   pull_request:
 #     branches: [ "master" ]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    name: BUILD USING VS2019
+    runs-on: windows-2019
 
     steps:
     - name: Checkout
@@ -22,6 +22,8 @@ jobs:
       uses: NuGet/setup-nuget@v1.1.1
     - name: Nuget Restore
       run: nuget restore
+    - name: Setup MSbuild
+      uses: microsoft/setup-msbuild@v1.1.3
     - name: Build
       run: |
         msbuild ${{env.SLN_FILE}} /p:TransformWebConfigEnabled=False /p:AutoParameterizationWebConfigConnectionStrings=False /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{github.workspace}}\stagingdir"
